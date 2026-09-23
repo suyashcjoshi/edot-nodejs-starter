@@ -60,7 +60,11 @@ export ELASTIC_OTEL_NODE_ENABLE_LOG_SENDING=true
 
 Or copy `.env.example` to `.env` and fill in the values.
 
+<<<<<<< HEAD
 ### 3. Start the app with the flag
+=======
+### 3. Start Node.js app with one flag
+>>>>>>> a9d042e9c4b165c7b54cfcdc3a67d26edd6f17ba
 
 ```bash
 node --import @elastic/opentelemetry-node app.js
