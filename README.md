@@ -13,16 +13,15 @@ and watch the data appear in Kibana.
 ## How it works
 
 ```
-Browser  -->  Express app (app.js) + pino logs
+Browser  -->  Express app (app.js) with dummy OTEL data (logs, metrics, traces)
                   |
                   |  started with: node --import @elastic/opentelemetry-node app.js
                   |  the SDK sends traces, metrics and logs over OTLP (HTTPS)
                   v
-             Elastic Observability (Kibana)
+              OTEL Observability in Elastic (Kibana)
 ```
 
-The SDK loads before your code and instruments Express, HTTP and pino on its own.
-`app.js` never imports or mentions OpenTelemetry.
+The SDK loads before your code and instruments Express, HTTP and pino on its own. 
 
 ## Run the app
 
@@ -36,8 +35,7 @@ Open http://localhost:3000. Nothing is connected to Elastic yet.
 
 ## Connect to Elastic
 
-Don't have Elastic yet? Start a free trial at https://cloud.elastic.co/registration and
-choose Serverless, then Observability.
+Don't have Elastic yet? Start a [free trial](https://cloud.elastic.co) and choose Serverless --> Observability Project.
 
 ### 1. Install the SDK
 
@@ -47,8 +45,7 @@ npm install @elastic/opentelemetry-node
 
 ### 2. Get your endpoint and API key
 
-In your Elastic project open **Add data**, then **Application**, then **OpenTelemetry**.
-Copy the values into your shell:
+In your Elastic project open **Add data**, then **Application**, then **OpenTelemetry**. Give your Service a name and then copy the values from Elastic UI into your shell:
 
 ```bash
 export OTEL_EXPORTER_OTLP_ENDPOINT="https://<your-project>.ingest.<region>.elastic.cloud:443"
@@ -58,19 +55,15 @@ export OTEL_RESOURCE_ATTRIBUTES="service.version=1.0.0,deployment.environment.na
 export ELASTIC_OTEL_NODE_ENABLE_LOG_SENDING=true
 ```
 
-Or copy `.env.example` to `.env` and fill in the values.
+Tip: You can update `.env.example` to `.env` and fill in the values.
 
-<<<<<<< HEAD
-### 3. Start the app with the flag
-=======
 ### 3. Start Node.js app with one flag
->>>>>>> a9d042e9c4b165c7b54cfcdc3a67d26edd6f17ba
 
 ```bash
 node --import @elastic/opentelemetry-node app.js
 ```
 
-With a `.env` file:
+If using `.env` file start using following command:
 
 ```bash
 npm run start:edot
@@ -106,26 +99,6 @@ Go to **Observability**, then **Services**. `edot-nodejs-starter` appears after 
 | Chained request | `/api/chain` calls `/api/hello` | A trace with an outbound HTTP span inside |
 
 `console.log` is not collected. Logs come from pino.
-
-## Routes
-
-| Route | Behaviour |
-|---|---|
-| `GET /` | The traffic generator page |
-| `GET /api/hello` | Returns `{ ok: true }` |
-| `GET /api/slow` | Waits 300 to 900 ms |
-| `GET /api/error` | Throws, returns 500 |
-| `GET /api/chain` | Calls `/api/hello` on itself |
-| `POST /api/log` | Writes a pino log line with your message |
-
-## Troubleshooting
-
-| Symptom | Fix |
-|---|---|
-| Service shows as `unknown_service:node` | Set `OTEL_SERVICE_NAME` |
-| No logs in Kibana | Set `ELASTIC_OTEL_NODE_ENABLE_LOG_SENDING=true` and restart |
-| Nothing appears | Check the endpoint and key, generate traffic, wait a minute |
-| `bad option: --env-file` | Node is older than 20.6 |
 
 ## Learn more
 
