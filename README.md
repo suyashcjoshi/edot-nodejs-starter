@@ -1,4 +1,4 @@
-# EDOT Node.js Starter
+# EDOT Node.js Demo
 
 [![Node >= 20.6](https://img.shields.io/badge/node-%3E%3D20.6-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org)
 [![Observed with Elastic EDOT](https://img.shields.io/badge/Observed%20with-Elastic%20EDOT-00BFB3?style=for-the-badge&logo=elastic&logoColor=white)](https://www.elastic.co/docs/reference/opentelemetry/edot-sdks/node/setup)
