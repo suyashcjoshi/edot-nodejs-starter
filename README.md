@@ -1,10 +1,14 @@
 # Hello EDOT Node.js SDK Tutorial
 
-The smallest possible Node.js app showing how to add **Elastic observability without any code changes.*
+[![Node.js](https://img.shields.io/badge/node-%3E%3D20.6-339933?logo=node.js&logoColor=white)](https://nodejs.org)
+[![OpenTelemetry](https://img.shields.io/badge/OpenTelemetry-compatible-f5a800?logo=opentelemetry&logoColor=white)](https://opentelemetry.io)
+[![EDOT](https://img.shields.io/badge/EDOT-Node.js-00BFB3?logo=elastic&logoColor=white)](https://github.com/elastic/elastic-otel-node)
+
+The smallest possible Node.js app showing how to add **Elastic observability without any code changes.**
 
 ## What is EDOT?
 
-**EDOT** (Elastic Distribution of OpenTelemetry) is Elastic's open source distribution of the OpenTelemetry SDK.]([https://opentelemetry.io/](https://www.elastic.co/docs/reference/opentelemetry/edot-sdks)) It wraps the upstream OTel Node.js SDK with zero custom APIs so your app stays 100% OpenTelemetry compatible and you get traces, metrics and logs flowing to Elastic out of the box without any code changes.
+**EDOT** (Elastic Distribution of OpenTelemetry) is Elastic's open source distribution of the OpenTelemetry SDK ([docs](https://www.elastic.co/docs/reference/opentelemetry/edot-sdks)). It wraps the upstream OTel Node.js SDK with zero custom APIs so your app stays 100% OpenTelemetry compatible and you get traces, metrics and logs flowing to Elastic out of the box without any code changes.
 
 **Benefits at a glance:**
 - **Zero code changes** : Auto instrument any Node.js app with a single `--import` flag
@@ -72,7 +76,7 @@ export OTEL_SERVICE_NAME="hello-edot-node"
 export OTEL_RESOURCE_ATTRIBUTES="service.version=1.0.0,deployment.environment.name=dev"
 ```
 
-Or put them in a `.env` file to avoid re-exporting each session.
+Or copy `.env.example` to `.env` and fill in your values to avoid re-exporting each session.
 
 ### 3. Start with one flag
 
@@ -86,11 +90,17 @@ With a `.env` file:
 node --env-file=.env --import @elastic/opentelemetry-node app.js
 ```
 
+Or use the npm script shorthand:
+
+```bash
+npm run start:edot
+```
+
 No changes to `app.js` needed.
 
 ## View your data in Elastic
 
-1. Open [Kibana](https://www.elastic.co/kibana) and go to **Observability → APM**
+1. Open [Kibana](https://www.elastic.co/kibana) and go to **Observability → Services**
 2. Your service (`hello-edot-node`) appears automatically after the first request
 3. Hit `curl http://localhost:3000/hello` a few times to generate traces
 4. Explore the **Service Map**, **Transactions**, and **Logs** tabs
@@ -99,5 +109,5 @@ No changes to `app.js` needed.
 
 - [EDOT Node.js on GitHub](https://github.com/elastic/elastic-otel-node)
 - [EDOT Node.js on npm](https://www.npmjs.com/package/@elastic/opentelemetry-node)
-- [Elastic Cloud Serverless — free APM](https://www.elastic.co/cloud/serverless)
+- [Elastic Cloud Serverless (free tier)](https://www.elastic.co/cloud/serverless)
 - [OpenTelemetry Node.js](https://opentelemetry.io/docs/languages/js/)

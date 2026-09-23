@@ -1,12 +1,29 @@
 {
   "name": "hello-edot-node",
-  "type": "module",
   "version": "1.0.0",
+  "description": "Minimal Node.js + Express starter showing zero-code-change observability with EDOT (Elastic Distribution of OpenTelemetry)",
+  "type": "module",
+  "author": "Suyash Joshi",
+  "license": "Apache-2.0",
+  "keywords": [
+    "opentelemetry",
+    "otel",
+    "edot",
+    "elastic",
+    "observability",
+    "apm",
+    "tracing",
+    "express",
+    "nodejs",
+    "starter",
+    "tutorial"
+  ],
   "engines": {
     "node": ">=20.6"
   },
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "start:edot": "node --import @elastic/opentelemetry-node app.js"
   },
   "dependencies": {
     "express": "^5.1.0"
