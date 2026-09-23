@@ -1,6 +1,6 @@
 # Hello EDOT Node.js SDK Tutorial
 
-The smallest possible Node.js app showing how to add **Elastic observability in one flag** — no code changes required.
+The smallest possible Node.js app showing how to add **Elastic observability without any code changes.*
 
 ## What is EDOT?
 
@@ -88,8 +88,6 @@ node --env-file=.env --import @elastic/opentelemetry-node app.js
 
 No changes to `app.js` needed.
 
----
-
 ## View your data in Elastic
 
 1. Open [Kibana](https://www.elastic.co/kibana) and go to **Observability → APM**
@@ -97,9 +95,7 @@ No changes to `app.js` needed.
 3. Hit `curl http://localhost:3000/hello` a few times to generate traces
 4. Explore the **Service Map**, **Transactions**, and **Logs** tabs
 
----
-
-## Resources
+### Resources
 
 - [EDOT Node.js on GitHub](https://github.com/elastic/elastic-otel-node)
 - [EDOT Node.js on npm](https://www.npmjs.com/package/@elastic/opentelemetry-node)
