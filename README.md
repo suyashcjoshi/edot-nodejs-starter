@@ -95,8 +95,3 @@ Go to **Observability**, then **Services**. `edot-nodejs-starter` appears after 
 - EDOT Node.js setup: https://www.elastic.co/docs/reference/opentelemetry/edot-sdks/node/setup
 - EDOT Node.js on GitHub: https://github.com/elastic/elastic-otel-node
 - Full story with a realistic app: https://github.com/suyashcjoshi/elastic-observability-nodejs-demo
-
-## License
-
-Apache-2.0. Elastic and Kibana are trademarks of Elasticsearch B.V. This is a personal
-demo repository.
