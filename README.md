@@ -78,9 +78,7 @@ set **Auto traffic** to 5, and write a log message.
 
 Go to **Observability**, then **Services**. `edot-nodejs-starter` appears after a minute or two.
 
-## What each control shows you
-
-| On the page | What it calls | Where to look in Kibana UI |
+| Dummy OTEL Web Page | What it calls | Where to look in Kibana UI |
 |---|---|---|
 | Send request | `/api/hello` and `/api/slow` | Transactions, latency distribution |
 | Include errors | adds `/api/error` | Errors tab, failed transaction rate |
