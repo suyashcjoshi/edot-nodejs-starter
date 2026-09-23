@@ -40,7 +40,7 @@ The smallest possible Node.js app showing how to add **Elastic observability in 
 ```
 
 
-## Run the app locally in 60 seconds
+## Run the app (without EDOT)
 
 ```bash
 npm install
@@ -53,7 +53,7 @@ Open `http://localhost:3000/hello` in your browser or:
 curl http://localhost:3000/hello
 ```
 
-## Connect to Elastic with just one flag
+## Connect to Elastic to see instant Observability
 
 ### 1. Install EDOT Node.js SDK
 
