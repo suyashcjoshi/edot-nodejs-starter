@@ -42,22 +42,7 @@ The smallest possible Node.js app showing how to add **Elastic observability wit
               │  • More ...             |
               └─────────────────────────┘
 ```
-
-
-## Run the app (without EDOT)
-
-```bash
-npm install
-npm start
-```
-
-Open `http://localhost:3000/hello` in your browser or:
-
-```bash
-curl http://localhost:3000/hello
-```
-
-## Connect to Elastic to see instant Observability
+## Setup with Elastic for instant Observability
 
 ### 1. Install EDOT Node.js SDK
 
@@ -65,7 +50,7 @@ curl http://localhost:3000/hello
 npm install @elastic/opentelemetry-node
 ```
 
-### 2. Set your connection details
+### 2. Configure your connection details
 
 Get these values from your Elastic Application Integration (OTEL) page:
 
@@ -78,7 +63,7 @@ export OTEL_RESOURCE_ATTRIBUTES="service.version=1.0.0,deployment.environment.na
 
 Or copy `.env.example` to `.env` and fill in your values to avoid re-exporting each session.
 
-### 3. Start with one flag
+### 3. Start Node.js app with one flag
 
 ```bash
 node --import @elastic/opentelemetry-node app.js
@@ -96,11 +81,19 @@ Or use the npm script shorthand:
 npm run start:edot
 ```
 
+### 4. View the contents the web app
+
+Open `http://localhost:3000/hello` in your browser or:
+
+```bash
+curl http://localhost:3000/hello
+```
+
 No changes to `app.js` needed.
 
-## View your data in Elastic
+### 5. View your data in Elastic (Kibana)
 
-1. Open [Kibana](https://www.elastic.co/kibana) and go to **Observability → Services**
+1. Open [Kibana](https://www.elastic.co/kibana) and go to **Observability → Service Inventory**
 2. Your service (`hello-edot-node`) appears automatically after the first request
 3. Hit `curl http://localhost:3000/hello` a few times to generate traces
 4. Explore the **Service Map**, **Transactions**, and **Logs** tabs
