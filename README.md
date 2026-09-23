@@ -85,10 +85,8 @@ Go to **Observability**, then **Services**. `edot-nodejs-starter` appears after 
 | Send request | `/api/hello` and `/api/slow` | Transactions, latency distribution |
 | Include errors | adds `/api/error` | Errors tab, failed transaction rate |
 | Auto traffic slider | the same mix on a timer | Throughput, and CPU, memory and event loop on the Metrics tab |
-| Write log | `POST /api/log` | Logs, correlated to the transaction by trace id |
+| Write log | `POST /api/log` | Logs, correlated to the transaction by trace id. `console.log` is not collected. Logs come from pino. |
 | Chained request | `/api/chain` calls `/api/hello` | A trace with an outbound HTTP span inside |
-
-`console.log` is not collected. Logs come from pino.
 
 ## Learn more
 
