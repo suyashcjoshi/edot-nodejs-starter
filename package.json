@@ -1,0 +1,14 @@
+{
+  "name": "weather-demo",
+  "type": "module",
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=20.6"
+  },
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
