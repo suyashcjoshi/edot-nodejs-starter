@@ -88,6 +88,5 @@ Go to **Observability**, then **Services**. `edot-nodejs-starter` appears after 
 
 ## Learn more
 
-- EDOT Node.js setup: https://www.elastic.co/docs/reference/opentelemetry/edot-sdks/node/setup
-- EDOT Node.js on GitHub: https://github.com/elastic/elastic-otel-node
-- Full story with a realistic app: https://github.com/suyashcjoshi/elastic-observability-nodejs-demo
+- More robust Node.js demo app to learn about performance and observability with Elastic : https://github.com/suyashcjoshi/elastic-observability-nodejs-demo
+- Latest EDOT Node.js Release Notes: https://www.elastic.co/docs/release-notes/edot/sdks/node
