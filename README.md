@@ -1,43 +1,113 @@
-# edot-nodejs-in-one-flag
+# hello-edot-node
 
-The smallest possible Node.js app — used to show how to connect to Elastic with a single `--import` flag, no code changes required.
+The smallest possible Node.js app showing how to add **Elastic observability in one flag** — no code changes required.
 
-## Run the app
+---
+
+## What is EDOT?
+
+**EDOT** (Elastic Distribution of OpenTelemetry) is Elastic's open-source distribution of the [OpenTelemetry](https://opentelemetry.io/) SDK. It wraps the upstream OTel Node.js SDK with zero custom APIs, so your app stays 100% OpenTelemetry-compatible — and you get traces, metrics, and logs flowing to Elastic out of the box.
+
+**Benefits at a glance:**
+- **Zero code changes** — instrument any Node.js app with a single `--import` flag
+- **Open source** — built on OpenTelemetry, no vendor lock-in
+- **Free with Elastic Serverless** — [Elastic Cloud Serverless](https://www.elastic.co/cloud/serverless) includes APM at no extra cost
+- **Auto-instrumentation** — Express, HTTP, fetch, databases, and more are detected automatically
+
+---
+
+## How it works
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                        Your Machine                         │
+│                                                             │
+│   curl /hello  ──►  Express App (app.js)                    │
+│                           │                                 │
+│                    EDOT Node.js SDK                         │
+│              (@elastic/opentelemetry-node)                  │
+│              auto-instruments HTTP + Express                │
+│                           │                                 │
+│              OTLP (traces / metrics / logs)                 │
+└───────────────────────────┼─────────────────────────────────┘
+                            │  HTTPS
+                            ▼
+              ┌─────────────────────────┐
+              │   Elastic Cloud APM     │
+              │  (Serverless or Cloud)  │
+              │                         │
+              │  • Distributed Traces   │
+              │  • Service Map          │
+              │  • Logs correlation     │
+              └─────────────────────────┘
+```
+
+---
+
+## Run the app locally
 
 ```bash
 npm install
 npm start
 ```
 
-Then try the three routes:
+Open `http://localhost:3000/hello` in your browser or:
 
 ```bash
 curl http://localhost:3000/hello
-curl http://localhost:3000/weather
-curl http://localhost:3000/oops
 ```
 
-## Connect to Elastic
+---
 
-Install the EDOT Node.js SDK:
+## Connect to Elastic in one flag
+
+### 1. Install EDOT
 
 ```bash
 npm install @elastic/opentelemetry-node
 ```
 
-Set your connection details:
+### 2. Set your connection details
+
+Get these values from your Elastic deployment's APM integration page:
 
 ```bash
 export OTEL_EXPORTER_OTLP_ENDPOINT="https://your-deployment.apm.us-east-1.aws.elastic.cloud"
 export OTEL_EXPORTER_OTLP_HEADERS="Authorization=ApiKey your-api-key-here"
-export OTEL_SERVICE_NAME="weather-demo"
+export OTEL_SERVICE_NAME="hello-edot-node"
 export OTEL_RESOURCE_ATTRIBUTES="service.version=1.0.0,deployment.environment.name=dev"
 ```
 
-Start the app with one flag — no code changes needed:
+Or put them in a `.env` file to avoid re-exporting each session.
+
+### 3. Start with one flag
 
 ```bash
 node --import @elastic/opentelemetry-node app.js
 ```
 
-The same variables can live in a `.env` file and be loaded with `node --env-file=.env --import @elastic/opentelemetry-node app.js`.
+With a `.env` file:
+
+```bash
+node --env-file=.env --import @elastic/opentelemetry-node app.js
+```
+
+No changes to `app.js` needed.
+
+---
+
+## View your data in Elastic
+
+1. Open [Kibana](https://www.elastic.co/kibana) and go to **Observability → APM**
+2. Your service (`hello-edot-node`) appears automatically after the first request
+3. Hit `curl http://localhost:3000/hello` a few times to generate traces
+4. Explore the **Service Map**, **Transactions**, and **Logs** tabs
+
+---
+
+## Resources
+
+- [EDOT Node.js on GitHub](https://github.com/elastic/elastic-otel-node)
+- [EDOT Node.js on npm](https://www.npmjs.com/package/@elastic/opentelemetry-node)
+- [Elastic Cloud Serverless — free APM](https://www.elastic.co/cloud/serverless)
+- [OpenTelemetry Node.js](https://opentelemetry.io/docs/languages/js/)
