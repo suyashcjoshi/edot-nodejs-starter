@@ -78,19 +78,9 @@ set **Auto traffic** to 5, and write a log message.
 
 Go to **Observability**, then **Services**. `edot-nodejs-starter` appears after a minute or two.
 
-## What the variables do
-
-| Variable | What it does |
-|---|---|
-| `OTEL_EXPORTER_OTLP_ENDPOINT` | Where the data goes. Your project's ingest URL. |
-| `OTEL_EXPORTER_OTLP_HEADERS` | Proves it is you. Carries the API key. |
-| `OTEL_SERVICE_NAME` | The name Kibana shows. Without it you get `unknown_service:node`. |
-| `OTEL_RESOURCE_ATTRIBUTES` | Optional labels on all data, such as version and environment. |
-| `ELASTIC_OTEL_NODE_ENABLE_LOG_SENDING` | Sends pino logs to Elastic. Off by default. |
-
 ## What each control shows you
 
-| On the page | What it calls | Where to look in Kibana |
+| On the page | What it calls | Where to look in Kibana UI |
 |---|---|---|
 | Send request | `/api/hello` and `/api/slow` | Transactions, latency distribution |
 | Include errors | adds `/api/error` | Errors tab, failed transaction rate |
