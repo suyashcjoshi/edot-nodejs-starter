@@ -13,15 +13,15 @@ and watch the data appear in Kibana.
 ## How it works
 
 ```
-Browser  -->  Express app (app.js) with dummy OTEL data (logs, metrics, traces)
+Browser  -->  Express app (app.js) with pino logs
                   |
                   |  started with: node --import @elastic/opentelemetry-node app.js
                   |  the SDK sends traces, metrics and logs over OTLP (HTTPS)
                   v
-              OTEL Observability in Elastic (Kibana)
+              Elastic Observability (Kibana)
 ```
 
-The SDK loads before your code and instruments Express, HTTP and pino on its own. 
+The SDK loads before your code and instruments Express, HTTP and pino on its own.
 
 ## Run the app
 
@@ -45,7 +45,7 @@ npm install @elastic/opentelemetry-node
 
 ### 2. Get your endpoint and API key
 
-In your Elastic project open **Add data**, then **Application**, then **OpenTelemetry**. Give your Service a name and then copy the values from Elastic UI into your shell:
+In your Elastic project open **Add data**, then **Application**, then **OpenTelemetry**. Give your service a name and copy the values from the Elastic UI into your shell:
 
 ```bash
 export OTEL_EXPORTER_OTLP_ENDPOINT="https://<your-project>.ingest.<region>.elastic.cloud:443"
@@ -55,15 +55,15 @@ export OTEL_RESOURCE_ATTRIBUTES="service.version=1.0.0,deployment.environment.na
 export ELASTIC_OTEL_NODE_ENABLE_LOG_SENDING=true
 ```
 
-Tip: You can update `.env.example` to `.env` and fill in the values.
+Tip: copy `.env.example` to `.env` and fill in the values.
 
-### 3. Start Node.js app with one flag
+### 3. Start the app with one flag
 
 ```bash
 node --import @elastic/opentelemetry-node app.js
 ```
 
-If using `.env` file start using following command:
+If using a `.env` file:
 
 ```bash
 npm run start:edot
@@ -72,19 +72,19 @@ npm run start:edot
 ### 4. Generate some traffic
 
 Open http://localhost:3000, click **Send request** a few times, turn on **Include errors**,
-set **Auto traffic** to 5, and write a log message.
+set **Auto rate** to 5, and send a log message.
 
 ### 5. Look in Kibana
 
 Go to **Observability**, then **Services**. `edot-nodejs-starter` appears after a minute or two.
 
-| Dummy OTEL Web Page | What it calls | Where to look in Kibana UI |
+| On the page | What it calls | Where to look in Kibana |
 |---|---|---|
 | Send request | `/api/hello` and `/api/slow` | Transactions, latency distribution |
 | Include errors | adds `/api/error` | Errors tab, failed transaction rate |
-| Auto traffic slider | the same mix on a timer | Throughput, and CPU, memory and event loop on the Metrics tab |
-| Write log | `POST /api/log` | Logs, correlated to the transaction by trace id. `console.log` is not collected. Logs come from pino. |
-| Chained request | `/api/chain` calls `/api/hello` | A trace with an outbound HTTP span inside |
+| Auto rate slider + Start | the same mix on a timer | Throughput, and CPU, memory and event loop on the Metrics tab |
+| Send log | `POST /api/log` | Logs, correlated to the transaction by trace id. `console.log` is not collected — logs come from pino. |
+| Outbound call | `/api/chain` calls `/api/hello` | A trace with an outbound HTTP span inside |
 
 ## Learn more
 
