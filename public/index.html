@@ -3,237 +3,103 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hello EDOT · Node.js</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Space+Grotesk:wght@700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      background: #0d0d1a;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      cursor: none;
-      font-family: 'Inter', Arial, sans-serif;
-    }
-
-    #cursor {
-      position: fixed;
-      width: 18px;
-      height: 18px;
-      border: 2px solid #00d2ff;
-      border-radius: 50%;
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      z-index: 9999;
-      box-shadow: 0 0 8px #00d2ff, 0 0 20px rgba(0,210,255,0.4);
-      transition: left 0.04s, top 0.04s;
-    }
-
-    #cursor-dot {
-      position: fixed;
-      width: 5px;
-      height: 5px;
-      background: #f04e98;
-      border-radius: 50%;
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      z-index: 9998;
-      box-shadow: 0 0 6px #f04e98;
-      transition: left 0.12s ease, top 0.12s ease;
-    }
-
-    .stage {
-      text-align: center;
-      user-select: none;
-    }
-
-    .ascii-block {
-      display: block;
-      white-space: pre;
-      font-family: 'Space Mono', monospace;
-      line-height: 1.14;
-    }
-
-    .ch {
-      display: inline-block;
-      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.25s ease;
-      will-change: transform;
-    }
-
-    /* color themes per section */
-    .hello-section  .ch { color: #7ccfff; font-size: 0.85rem; }
-    .edot-section   .ch { color: #00d2ff; font-size: 1.4rem;  }
-
-    .nodejs-label {
-      font-family: 'Space Grotesk', 'Inter', Arial, sans-serif;
-      font-size: 3.6rem;
-      font-weight: 700;
-      color: #68d391;
-      letter-spacing: 0.12em;
-      text-shadow: 0 0 24px rgba(104, 211, 145, 0.45);
-      line-height: 1.14;
-    }
-    .nodejs-label .dot {
-      color: #f04e98;
-      text-shadow: 0 0 18px #f04e98;
-    }
-
-    .gap { height: 18px; }
-    .gap-sm { height: 10px; }
-
-    #header {
-      position: fixed;
-      top: 22px;
-      font-family: 'Inter', Arial, sans-serif;
-      font-size: 0.75rem;
-      line-height: 1.55;
-      color: #7ccfff;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      text-align: center;
-    }
-    #header em {
-      color: #f04e98;
-      font-style: normal;
-    }
-
-    #footer {
-      position: fixed;
-      bottom: 24px;
-      font-family: 'Inter', Arial, sans-serif;
-      font-size: 0.85rem;
-      line-height: 1.55;
-      color: #7ccfff;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-    #footer a {
-      color: #f04e98;
-      text-decoration: none;
-      font-weight: bold;
-      transition: color 0.2s, text-shadow 0.2s;
-    }
-    #footer a:hover {
-      color: #00d2ff;
-      text-shadow: 0 0 10px #00d2ff;
-    }
-  </style>
+  <title>EDOT Node.JS Demo</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="header">Observe this app with <em>Elastic Observability</em></div>
-  <div id="cursor"></div>
-  <div id="cursor-dot"></div>
-  <div class="stage" id="stage"></div>
-  <div id="footer">Learn more about <a href="https://www.elastic.co/docs/reference/opentelemetry/edot-sdks" target="_blank" rel="noopener">Elastic's OpenTelemetry EDOT SDKs</a></div>
 
-  <script>
-    const ART = {
-      hello: [
-        " _   _      _ _       ",
-        "| | | | ___| | | ___  ",
-        "| |_| |/ _ \\ | |/ _ \\ ",
-        "|  _  |  __/ | | (_) |",
-        "|_| |_|\\___|_|_|\\___/ "
-      ],
-      edot: [
-        "███████╗██████╗  ██████╗ ████████╗",
-        "██╔════╝██╔══██╗██╔═══██╗╚══██╔══╝",
-        "█████╗  ██║  ██║██║   ██║   ██║   ",
-        "██╔══╝  ██║  ██║██║   ██║   ██║   ",
-        "███████╗██████╔╝╚██████╔╝   ██║   ",
-        "╚══════╝╚═════╝  ╚═════╝    ╚═╝   "
-      ],
-    };
+<header>
+  <h1><a href="https://github.com/suyashcjoshi/edot-nodejs-starter" target="_blank" rel="noopener">EDOT Node.JS Demo</a></h1>
+  <p>Generate traffic and see traces, metrics, logs and errors in Elastic Observability.</p>
+</header>
 
-    const stage = document.getElementById('stage');
-    const allChars = [];
+<div id="setup-banner" class="setup-banner hidden">
+  <span class="setup-banner-icon">&#9888;</span>
+  <span class="setup-banner-text">
+    EDOT is not configured &mdash; this app is not sending data to Elastic yet.
+    Follow the <a href="https://github.com/suyashcjoshi/edot-nodejs-starter#readme" target="_blank" rel="noopener">setup steps in the README</a> to connect to Elastic Observability.
+  </span>
+</div>
 
-    function buildSection(lines, className) {
-      const wrap = document.createElement('div');
-      wrap.className = className;
-      lines.forEach(line => {
-        const row = document.createElement('div');
-        row.className = 'ascii-block';
-        [...line].forEach(c => {
-          const sp = document.createElement('span');
-          sp.className = 'ch';
-          sp.textContent = c;
-          sp._baseColor = null; // resolved at runtime
-          row.appendChild(sp);
-          allChars.push(sp);
-        });
-        wrap.appendChild(row);
-      });
-      stage.appendChild(wrap);
-    }
+<main>
 
-    function gap(size) {
-      const d = document.createElement('div');
-      d.className = size === 'sm' ? 'gap-sm' : 'gap';
-      stage.appendChild(d);
-    }
+  <div class="panel">
+    <h2>Controls</h2>
+    <div class="controls">
 
-    buildSection(ART.hello,  'hello-section');
-    gap('sm');
-    buildSection(ART.edot,   'edot-section');
-    gap();
+      <div class="control-row">
+        <button class="primary" id="btn-send">Send request</button>
+        <button class="secondary" id="btn-outbound">Outbound call</button>
+        <span class="hint">Outbound call shows nested HTTP span in same trace</span>
+      </div>
 
-    const nodeLabel = document.createElement('div');
-    nodeLabel.className = 'nodejs-label';
-    nodeLabel.innerHTML = 'Node<span class="dot">.</span>js';
-    stage.appendChild(nodeLabel);
+      <div class="control-row">
+        <label for="switch-errors">Include errors</label>
+        <div class="switch-wrap">
+          <label class="switch">
+            <input type="checkbox" id="switch-errors">
+            <span class="slider-track"></span>
+          </label>
+          <span class="hint">~1 in 10 calls hits /api/error</span>
+        </div>
+      </div>
 
-    // ── cursor ──────────────────────────────────────────────
-    const cursor = document.getElementById('cursor');
-    const dot    = document.getElementById('cursor-dot');
-    let mx = -999, my = -999;
+      <div class="control-row">
+        <label for="range-auto">Auto rate</label>
+        <div class="range-wrap">
+          <input type="range" id="range-auto" min="0" max="10" value="0" step="1">
+          <span class="range-value" id="range-value">0</span>
+          <span class="hint">req/s</span>
+        </div>
+        <button class="primary" id="btn-start">Start</button>
+        <button class="secondary" id="btn-stop" disabled>Stop</button>
+      </div>
 
-    document.addEventListener('mousemove', e => {
-      mx = e.clientX; my = e.clientY;
-      cursor.style.left = mx + 'px';
-      cursor.style.top  = my + 'px';
-      dot.style.left    = mx + 'px';
-      dot.style.top     = my + 'px';
-    });
+      <div class="control-row">
+        <label for="input-log">Log message</label>
+        <input type="text" id="input-log" placeholder="Type a message and press Enter…">
+        <button class="secondary" id="btn-log">Send log</button>
+      </div>
 
-    // ── character repulsion ──────────────────────────────────
-    const RADIUS = 90;
-    const PUSH   = 45;
+    </div>
+  </div>
 
-    function tick() {
-      allChars.forEach(sp => {
-        const r = sp.getBoundingClientRect();
-        const cx = r.left + r.width  / 2;
-        const cy = r.top  + r.height / 2;
-        const dx = cx - mx;
-        const dy = cy - my;
-        const dist = Math.sqrt(dx * dx + dy * dy);
+  <div class="panel">
+    <h2>Activity</h2>
 
-        if (dist < RADIUS && dist > 0) {
-          const f = (RADIUS - dist) / RADIUS;
-          const ang = Math.atan2(dy, dx);
-          const px = Math.cos(ang) * f * PUSH;
-          const py = Math.sin(ang) * f * PUSH;
-          sp.style.transform = `translate(${px}px, ${py}px)`;
-          // shift hue from base toward pink
-          const hue = 190 + f * 150;
-          const lit = 55  + f * 30;
-          sp.style.color = `hsl(${hue}, 100%, ${lit}%)`;
-        } else {
-          sp.style.transform = '';
-          sp.style.color = '';
-        }
-      });
-      requestAnimationFrame(tick);
-    }
+    <div class="counters">
+      <div class="counter">
+        <span class="counter-label">Requests</span>
+        <span class="counter-value" id="cnt-requests">0</span>
+      </div>
+      <div class="counter">
+        <span class="counter-label">Errors</span>
+        <span class="counter-value" id="cnt-errors">0</span>
+      </div>
+      <div class="counter">
+        <span class="counter-label">Last status</span>
+        <span class="counter-value" id="cnt-status">—</span>
+      </div>
+      <div class="counter">
+        <span class="counter-label">Last latency</span>
+        <span class="counter-value" id="cnt-latency">—</span>
+      </div>
+    </div>
 
-    tick();
-  </script>
+    <ul class="activity-list" id="activity-list">
+      <li class="activity-empty">No activity yet — click Send request or write a log to start.</li>
+    </ul>
+  </div>
+
+</main>
+
+<footer>
+  Built for Observability with Elastic &mdash;
+  <a href="https://github.com/suyashcjoshi/edot-nodejs-starter" target="_blank" rel="noopener">GitHub</a>
+  &middot;
+  <a href="https://www.elastic.co/docs/reference/opentelemetry/edot-sdks/node/setup" target="_blank" rel="noopener">EDOT Node.js setup docs</a>
+</footer>
+
+<script src="app.js"></script>
 </body>
 </html>

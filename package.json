@@ -1,5 +1,5 @@
 {
-  "name": "hello-edot-node",
+  "name": "edot-nodejs-starter",
   "version": "1.0.0",
   "description": "Minimal Node.js + Express starter showing zero-code-change observability with EDOT (Elastic Distribution of OpenTelemetry)",
   "type": "module",
@@ -23,9 +23,10 @@
   },
   "scripts": {
     "start": "node app.js",
-    "start:edot": "node --import @elastic/opentelemetry-node app.js"
+    "start:edot": "node --env-file=.env --import @elastic/opentelemetry-node app.js"
   },
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "pino": "^9.0.0"
   }
 }
