@@ -1,22 +1,19 @@
-# hello-edot-node
+# Hello EDOT Node.js SDK Tutorial
 
 The smallest possible Node.js app showing how to add **Elastic observability in one flag** — no code changes required.
 
----
-
 ## What is EDOT?
 
-**EDOT** (Elastic Distribution of OpenTelemetry) is Elastic's open-source distribution of the [OpenTelemetry](https://opentelemetry.io/) SDK. It wraps the upstream OTel Node.js SDK with zero custom APIs, so your app stays 100% OpenTelemetry-compatible — and you get traces, metrics, and logs flowing to Elastic out of the box.
+**EDOT** (Elastic Distribution of OpenTelemetry) is Elastic's open source distribution of the OpenTelemetry SDK.]([https://opentelemetry.io/](https://www.elastic.co/docs/reference/opentelemetry/edot-sdks)) It wraps the upstream OTel Node.js SDK with zero custom APIs so your app stays 100% OpenTelemetry compatible and you get traces, metrics and logs flowing to Elastic out of the box without any code changes.
 
 **Benefits at a glance:**
-- **Zero code changes** — instrument any Node.js app with a single `--import` flag
-- **Open source** — built on OpenTelemetry, no vendor lock-in
-- **Free with Elastic Serverless** — [Elastic Cloud Serverless](https://www.elastic.co/cloud/serverless) includes APM at no extra cost
-- **Auto-instrumentation** — Express, HTTP, fetch, databases, and more are detected automatically
+- **Zero code changes** : Auto instrument any Node.js app with a single `--import` flag
+- **Open source**: Built on OpenTelemetry so there is no vendor lock in
+- **Free with Elastic Serverless**: [Elastic Cloud Serverless](https://www.elastic.co/cloud/serverless)
+- **Auto-instrumentation**: Express, HTTP, fetch, databases and dependencies etc are detected automatically.
 
----
 
-## How it works
+## Demo App Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -28,23 +25,22 @@ The smallest possible Node.js app showing how to add **Elastic observability in 
 │              (@elastic/opentelemetry-node)                  │
 │              auto-instruments HTTP + Express                │
 │                           │                                 │
-│              OTLP (traces / metrics / logs)                 │
+│              OTLP Collector (traces / metrics / logs)                 │
 └───────────────────────────┼─────────────────────────────────┘
                             │  HTTPS
                             ▼
               ┌─────────────────────────┐
-              │   Elastic Cloud APM     │
-              │  (Serverless or Cloud)  │
+              │   Elastic Observability │
               │                         │
               │  • Distributed Traces   │
               │  • Service Map          │
-              │  • Logs correlation     │
+              │  • Logs correlation     |
+              │  • More ...             |
               └─────────────────────────┘
 ```
 
----
 
-## Run the app locally
+## Run the app locally in 60 seconds
 
 ```bash
 npm install
@@ -57,11 +53,9 @@ Open `http://localhost:3000/hello` in your browser or:
 curl http://localhost:3000/hello
 ```
 
----
+## Connect to Elastic with just one flag
 
-## Connect to Elastic in one flag
-
-### 1. Install EDOT
+### 1. Install EDOT Node.js SDK
 
 ```bash
 npm install @elastic/opentelemetry-node
@@ -69,7 +63,7 @@ npm install @elastic/opentelemetry-node
 
 ### 2. Set your connection details
 
-Get these values from your Elastic deployment's APM integration page:
+Get these values from your Elastic Application Integration (OTEL) page:
 
 ```bash
 export OTEL_EXPORTER_OTLP_ENDPOINT="https://your-deployment.apm.us-east-1.aws.elastic.cloud"
